@@ -1,4 +1,6 @@
-﻿namespace Catalog.API.Products.CreateProduct;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Catalog.API.Products.CreateProduct;
 
 public record CreateProductCommand(string Name, List<string> Category, string Description, string ImageFile, decimal Price): ICommand<CreateProductResult>;
 
@@ -15,7 +17,8 @@ public class CreateProductCommandValidator: AbstractValidator<CreateProductComma
     }
 }
 
-internal sealed class CreateProductCommandHandler(IDocumentSession session, IValidator<CreateProductCommand> validator) 
+internal sealed class CreateProductCommandHandler
+    (IDocumentSession session, ILogger<CreateProductCommandHandler> logger) 
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
@@ -23,16 +26,10 @@ internal sealed class CreateProductCommandHandler(IDocumentSession session, IVal
         // 1. Create product entity from command object
         // 2. Save to database
         // 3. Return CreateProductResult result
-        // 4. Add validation
 
-        var result = await validator.ValidateAsync(command, cancellationToken);
-        var errors = result.Errors.Select(x => x.ErrorMessage).ToList();
-
-        if (errors.Any())
-        {
-            throw new ValidationException(errors.FirstOrDefault());
-        }
         // 1. Create product entity from command object
+
+        logger.LogInformation("CreateProductCommandHandler.Handle called with {@Command}", command);
 
         var product = new Product
         {
