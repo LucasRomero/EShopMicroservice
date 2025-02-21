@@ -15,7 +15,7 @@ internal sealed class GetProductByIdQueryHandler
 
         if(product is null)
         {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(query.Id);
         }
 
 
