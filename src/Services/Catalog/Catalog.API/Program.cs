@@ -9,7 +9,10 @@ var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssemblies(assembly);
+    // se ejecuta ValidationBehavior primero y despues LogginBehaviour
+    // ya que sigue este work-flow
     config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LogginBehaviour<,>));
 });
 builder.Services.AddValidatorsFromAssembly(assembly);
 
