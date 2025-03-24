@@ -20,7 +20,7 @@ services:
       - catalogdb
     ports:
       - "6000:8080"
-      - "6000:8081"
+      - "6060:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
