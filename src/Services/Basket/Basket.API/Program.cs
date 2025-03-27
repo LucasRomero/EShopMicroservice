@@ -20,6 +20,9 @@ builder
     })
     .UseLightweightSessions();
 
+// Repositories
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. (after building app)
