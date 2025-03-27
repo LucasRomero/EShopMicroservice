@@ -12,7 +12,7 @@ public class GetBasketQueryHandler : IQueryHandler<GetBasketQuery, GetBasketResu
     )
     {
         //TODO: GetBasket
-        // var basket = await _repository.GetBasketAsync(query.UserName);
+        // var basket = await _repository.GetBasket(query.UserName);
 
         return new GetBasketResult(new ShoppingCart("UserName"));
     }
