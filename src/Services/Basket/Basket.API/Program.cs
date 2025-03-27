@@ -1,4 +1,5 @@
 using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.Handler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +24,14 @@ builder
 // Repositories
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
+// Exceotion Handling
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline. (after building app)
 app.MapCarter();
+app.UseExceptionHandler(options => { });
 
 app.UseHttpsRedirection();
 
